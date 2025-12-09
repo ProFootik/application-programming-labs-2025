@@ -1,6 +1,8 @@
+from datetime import datetime
 import os
 from pathlib import Path
 from typing import Tuple
+
 
 import pandas as pd
 
@@ -56,8 +58,6 @@ def setup_output_directory(base_dir: str = "lab4_results") -> str:
         str: путь к созданной директории
     """
     # Создаем уникальное имя директории с timestamp
-    from datetime import datetime
-
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     output_dir = Path(base_dir) / f"analysis_{timestamp}"
 

@@ -1,7 +1,10 @@
-import pandas as pd
 from typing import Optional, Tuple, Union
 import os
+
+import pandas as pd
 from pathlib import Path
+
+from .image_analysis import calculate_brightness_range
 
 
 def create_dataframe_from_csv(csv_path: str) -> pd.DataFrame:
@@ -62,7 +65,6 @@ def add_brightness_range_columns(
     Returns:
         pd.DataFrame: DataFrame с добавленными колонками
     """
-    from .image_analysis import calculate_brightness_range
 
     # Копируем DataFrame чтобы не изменять оригинал
     result_df = df.copy()
