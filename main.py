@@ -6,10 +6,6 @@ from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
 
-
-# Добавляем текущую директорию в путь для импорта
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
 from utils.file_ops import (
     validate_csv_file,
     setup_output_directory,
@@ -27,6 +23,9 @@ from visualization.plotting import (
     plot_brightness_histogram,
     plot_combined_ranges,
 )
+
+# Добавляем текущую директорию в путь для импорта
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 
 def parse_arguments() -> argparse.Namespace:
