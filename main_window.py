@@ -253,14 +253,17 @@ class ImageViewer(QMainWindow):
         # Кнопка перехода к конкретному изображению
         goto_layout = QHBoxLayout()
         goto_layout.addWidget(QLabel("Перейти к:"))
-
+    
         self.spin_image_index = QSpinBox()
         self.spin_image_index.setRange(1, 1)
         self.spin_image_index.setValue(1)
         self.spin_image_index.valueChanged.connect(self.go_to_image)
         goto_layout.addWidget(self.spin_image_index)
-
-        goto_layout.addWidget(QLabel(f"/ {self.total_images}"))
+    
+       
+        self.label_total_images = QLabel("/ 0")  
+        goto_layout.addWidget(self.label_total_images)
+    
         info_layout.addLayout(goto_layout)
 
         # Разделитель
@@ -581,6 +584,8 @@ class ImageViewer(QMainWindow):
     def update_navigation_controls(self):
         """Обновление элементов управления навигацией"""
         if self.image_iterator:
+            # Обновляем общее количество
+            self.total_images = self.image_iterator.total_count()
             # Обновляем спинбокс
             self.spin_image_index.setRange(1, max(1, self.total_images))
             self.spin_image_index.setValue(self.current_image_index + 1)
@@ -589,6 +594,9 @@ class ImageViewer(QMainWindow):
             self.label_navigation.setText(
                 f"Изображение: {self.current_image_index + 1}/{self.total_images}"
             )
+
+            # Обновляем метку с общим количеством
+            self.label_total_images.setText(f"/ {self.total_images}")  
 
             # Обновляем прогресс бар
             if self.total_images > 0:
