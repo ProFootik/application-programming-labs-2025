@@ -1,10 +1,10 @@
 import argparse
-import sys
 import os
+import sys
 
+import matplotlib.pyplot as plt
 from pathlib import Path
 import pandas as pd
-import matplotlib.pyplot as plt
 
 from utils.file_ops import (
     validate_csv_file,
