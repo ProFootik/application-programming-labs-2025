@@ -22,7 +22,7 @@ from PyQt5.QtWidgets import (
     QSplitter,
     QFrame,
 )
-from PyQt5.QtGui import QPixmap, QFont
+from PyQt5.QtGui import QPixmap, QFont, QTransform
 from PyQt5.QtCore import Qt
 
 # Импортируем адаптер для итератора
@@ -693,17 +693,39 @@ class ImageViewer(QMainWindow):
         """Повернуть изображение на 90° влево"""
         if self.current_image_index in self.image_cache:
             pixmap = self.image_cache[self.current_image_index]
-            transformed = pixmap.transformed(pixmap.transformationMode().rotate(-90))
+            
+            # Создаем трансформацию для поворота на -90 градусов
+            transform = QTransform()
+            transform.rotate(-90)
+            
+            # Применяем трансформацию с сглаживанием
+            transformed = pixmap.transformed(
+                transform,
+                Qt.SmoothTransformation
+            )
+            
+            # Обновляем кэш и отображение
             self.image_cache[self.current_image_index] = transformed
             self.apply_display_mode(transformed)
-
+            
+            self.status_bar.showMessage("Изображение повернуто на 90° влево")
     def rotate_right(self):
         """Повернуть изображение на 90° вправо"""
         if self.current_image_index in self.image_cache:
             pixmap = self.image_cache[self.current_image_index]
-            transformed = pixmap.transformed(pixmap.transformationMode().rotate(90))
+            
+            transform = QTransform()
+            transform.rotate(90)  # +90 градусов
+            
+            transformed = pixmap.transformed(
+                transform,
+                Qt.SmoothTransformation
+            )
+            
             self.image_cache[self.current_image_index] = transformed
             self.apply_display_mode(transformed)
+            
+            self.status_bar.showMessage("Изображение повернуто на 90° вправо")
 
     # ========== ДОПОЛНИТЕЛЬНЫЕ ФУНКЦИИ ==========
 
